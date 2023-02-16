@@ -18,10 +18,10 @@ public class StringPset1 {
     }
 
 
-    public static boolean isPermutation(String sIn1, String sIn2) {
-        HashMap<Character,Integer> map1 = new HashMap<>();
-        HashMap<Character,Integer> map2 = new HashMap<>();
-
-
-    }
+//    public static boolean isPermutation(String sIn1, String sIn2) {
+//        HashMap<Character,Integer> map1 = new HashMap<>();
+//        HashMap<Character,Integer> map2 = new HashMap<>();
+//
+//
+//    }
 }
