@@ -6,6 +6,7 @@ import javax.sound.midi.MidiUnavailableException;
 
 import midi.Instrument;
 import midi.Midi;
+import music.NoteEvent;
 import music.Pitch;
 
 public class PianoMachine {
@@ -13,7 +14,8 @@ public class PianoMachine {
 
     Instrument currentInstrument = Instrument.PIANO;
     int currentShift = 0;
-
+    boolean recording = false;
+    ArrayList<NoteEvent> record = new ArrayList<>();
 
     private Midi midi;
 
@@ -41,6 +43,7 @@ public class PianoMachine {
 
         midi.beginNote(rawPitch.toMidiFrequency(), currentInstrument);
         playingNotes.add(rawPitch);
+        record.add(new NoteEvent(rawPitch, System.currentTimeMillis(),currentInstrument, NoteEvent.Kind.start));
     }
 
     //TODO write method spec
@@ -55,6 +58,8 @@ public class PianoMachine {
         if (toDelete == null) return;
         midi.endNote(rawPitch.toMidiFrequency(), currentInstrument);
         playingNotes.remove(toDelete);
+        record.add(new NoteEvent(rawPitch, System.currentTimeMillis(),currentInstrument, NoteEvent.Kind.stop));
+
     }
 
     public void changeInstrument() {
@@ -78,13 +83,42 @@ public class PianoMachine {
 
     //TODO write method spec
     public boolean toggleRecording() {
-        return false;
-        //TODO: implement for question 4
+        recording = !recording;
+        if (recording && !record.isEmpty()) {
+            record.clear();
+        }
+        return recording;
     }
 
-    //TODO write method spec
+
+    // create function that playback the recorded notes
     public void playback() {
-        //TODO: implement for question 4
+        for (int i=0; i<record.size(); i++) {
+
+            long time = i == record.size()-1 ? 0 : (record.get(i+1).getTime() - record.get(i).getTime());
+            NoteEvent note = record.get(i);
+//            System.out.printf("pitch:%s, time:%s, instrument:%s, kind:%s \n", note.getPitch(), time, note.getInstr(), note.getKind());
+
+            if (note.getKind() == NoteEvent.Kind.start) {
+                midi.beginNote(note.getPitch().toMidiFrequency(), note.getInstr());
+                try {
+                    Thread.sleep(time);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            else if (note.getKind() == NoteEvent.Kind.stop) {
+                midi.endNote(note.getPitch().toMidiFrequency(), note.getInstr());
+                try {
+                    Thread.sleep(time);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        return;
     }
 
 }

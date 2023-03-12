@@ -18,74 +18,24 @@ public class TestPiano {
             midi.clearHistory();
             pm = new PianoMachine();
 
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
 
-            pm.shiftUp();
+            pm.toggleRecording();
 
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
+            pm.beginNote(new Pitch(3));
 
-            pm.shiftUp();
+            pm.beginNote(new Pitch(5));
 
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
+            Midi.rest(10);
 
-            pm.shiftUp();
+            pm.endNote(new Pitch(3));
 
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
+            pm.endNote(new Pitch(5));
 
-            pm.shiftDown();
-
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
-
-            pm.shiftDown();
-
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
-
-            pm.shiftDown();
-
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
-
-            pm.shiftDown();
-
-            pm.beginNote(new Pitch(0));
-            Midi.rest(50);
-            pm.endNote(new Pitch(0));
+            pm.toggleRecording();
+            pm.playback();
+            Midi.rest(1000);
 
 
-
-
-
-
-            System.out.println(midi.history());
-
-            midi.clearHistory();
-
-
-
-
-//            pm.changeInstrument();
-//            Midi.rest(10);
-//            pm.changeInstrument();
-
-//            pm.beginNote(new Pitch(2));
-//            Midi.rest(50);
-//            pm.endNote(new Pitch(2));
-
-            System.out.println(midi.history());
-            midi.clearHistory();
         }
         catch (Exception ex) {
             ex.printStackTrace();
