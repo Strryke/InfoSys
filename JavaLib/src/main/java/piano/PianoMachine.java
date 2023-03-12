@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 import javax.sound.midi.MidiUnavailableException;
 
+import midi.Instrument;
 import midi.Midi;
 import music.Pitch;
 
 public class PianoMachine {
     ArrayList<Pitch> playingNotes = new ArrayList<>();
 
-
+    Instrument currentInstrument = Instrument.PIANO;
     private Midi midi;
 
     /**
@@ -34,7 +35,7 @@ public class PianoMachine {
             if (rawPitch.equals(playing)) return;
         }
 
-        midi.beginNote(rawPitch.toMidiFrequency());
+        midi.beginNote(rawPitch.toMidiFrequency(), currentInstrument);
         playingNotes.add(rawPitch);
     }
 
@@ -47,13 +48,13 @@ public class PianoMachine {
             }
         }
         if (toDelete == null) return;
-        midi.endNote(rawPitch.toMidiFrequency());
+        midi.endNote(rawPitch.toMidiFrequency(), currentInstrument);
         playingNotes.remove(toDelete);
     }
 
-    //TODO write method spec
     public void changeInstrument() {
-        //TODO: implement for question 2
+        Instrument nextInstrument = currentInstrument.next();
+        currentInstrument = nextInstrument;
     }
 
     //TODO write method spec
