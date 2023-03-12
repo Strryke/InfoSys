@@ -12,6 +12,9 @@ public class PianoMachine {
     ArrayList<Pitch> playingNotes = new ArrayList<>();
 
     Instrument currentInstrument = Instrument.PIANO;
+    int currentShift = 0;
+
+
     private Midi midi;
 
     /**
@@ -31,6 +34,7 @@ public class PianoMachine {
 
     //TODO write method spec
     public void beginNote(Pitch rawPitch) {
+        rawPitch = rawPitch.transpose(currentShift * 12);
         for (Pitch playing : playingNotes) {
             if (rawPitch.equals(playing)) return;
         }
@@ -41,6 +45,7 @@ public class PianoMachine {
 
     //TODO write method spec
     public void endNote(Pitch rawPitch) {
+        rawPitch = rawPitch.transpose(currentShift * 12);
         Pitch toDelete = null;
         for (Pitch playing : playingNotes) {
             if (rawPitch.equals(playing)) {
@@ -59,12 +64,16 @@ public class PianoMachine {
 
     //TODO write method spec
     public void shiftUp() {
-        //TODO: implement for question 3
+        if (currentShift < 2) {
+            currentShift += 1;
+        }
     }
 
     //TODO write method spec
     public void shiftDown() {
-        //TODO: implement for question 3
+        if (currentShift > -2) {
+            currentShift -= 1;
+        }
     }
 
     //TODO write method spec

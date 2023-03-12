@@ -18,7 +18,60 @@ public class TestPiano {
             midi.clearHistory();
             pm = new PianoMachine();
 
-            pm.beginNote(new Pitch(0)); Midi.rest(50); pm.endNote(new Pitch(2));
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+            pm.shiftUp();
+
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+            pm.shiftUp();
+
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+            pm.shiftUp();
+
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+            pm.shiftDown();
+
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+            pm.shiftDown();
+
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+            pm.shiftDown();
+
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+            pm.shiftDown();
+
+            pm.beginNote(new Pitch(0));
+            Midi.rest(50);
+            pm.endNote(new Pitch(0));
+
+
+
+
+
+
+            System.out.println(midi.history());
+
+            midi.clearHistory();
 
 
 
